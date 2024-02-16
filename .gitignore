@@ -1,0 +1,7 @@
+**/venv/
+Notebooks/Flask API Code/flask_api_venv
+Notebooks/*/venv/
+Notebooks/*/venv/
+Notebooks/*/*/venv/
+Notebooks/*/*/*/venv/
+Notebooks/*/*/venv/

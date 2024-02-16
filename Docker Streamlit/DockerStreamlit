@@ -1,0 +1,26 @@
+# Use an official Python runtime as the base image
+FROM python:3.9-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Streamlit app file into the container
+COPY Stock_Prediction_App.py /app/Stock_Prediction_App.py
+
+# Copy the model files into the container
+COPY AAPL_model.tf /app/AAPL_model.tf
+COPY AMZN_model.tf /app/AMZN_model.tf
+COPY BRK-A_model.tf /app/BRK-A_model.tf
+COPY GOOGL_model.tf /app/GOOGL_model.tf
+COPY JNJ_model.tf /app/JNJ_model.tf
+COPY MSFT_model.tf /app/MSFT_model.tf
+COPY TSLA_model.tf /app/TSLA_model.tf
+
+# Install any needed dependencies
+RUN pip install --no-cache-dir streamlit yfinance plotly pandas numpy scikit-learn alpha-vantage tensorflow prophet
+
+# Expose the streamlit port
+EXPOSE 8501
+
+# Run the Streamlit app when the container launches
+CMD ["streamlit", "run", "--server.enableCORS", "false", "--server.port", "8501", "Stock_Prediction_App.py"]

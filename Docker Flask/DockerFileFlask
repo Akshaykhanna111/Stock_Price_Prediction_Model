@@ -1,0 +1,29 @@
+# Use an official Python runtime as the base image
+FROM python:3.9-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Flask API file into the container
+COPY flask_api.py /app
+
+# Copy the model files into the container
+COPY AAPL_model.tf /app/AAPL_model.tf
+COPY AMZN_model.tf /app/AMZN_model.tf
+COPY BRK-A_model.tf /app/BRK-A_model.tf
+COPY GOOGL_model.tf /app/GOOGL_model.tf
+COPY JNJ_model.tf /app/JNJ_model.tf
+COPY MSFT_model.tf /app/MSFT_model.tf
+COPY TSLA_model.tf /app/TSLA_model.tf
+
+# Install any needed dependencies
+RUN pip install --no-cache-dir flask yfinance pandas numpy requests tensorflow scikit-learn alpha-vantage
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
+
+# Define environment variable
+ENV FLASK_APP flask_api.py
+
+# Run flask_api.py when the container launches
+CMD ["flask", "run", "--host=0.0.0.0"]
